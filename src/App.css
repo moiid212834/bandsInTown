@@ -1,7 +1,6 @@
-.App {
-  text-align: center;
+.AppContainer{
+ min-height: 85vmin;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,4 +35,8 @@
   100% {
     transform: translateY(0px);
   }
+}
+.clickableIcon:hover{
+  color:#3c5a99;
+  cursor:pointer;
 }
