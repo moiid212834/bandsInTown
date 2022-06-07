@@ -24,25 +24,25 @@ export default function SearchResults() {
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid item xs={2} sm={3} md={3}>
           <div style={{textAlign:'center'}}>
-            <Skeleton variant="circular" width={200} height={200} style={{margin:'20px auto'}} />
+            <Skeleton variant="circular" width={180} height={180} style={{margin:'20px auto'}} />
             <Skeleton variant="text" width={'100%'}/>
           </div>
         </Grid>
         <Grid item xs={2} sm={3} md={3}>
           <div style={{textAlign:'center'}}>
-            <Skeleton variant="circular" width={200} height={200} style={{margin:'20px auto'}} />
+            <Skeleton variant="circular" width={180} height={180} style={{margin:'20px auto'}} />
             <Skeleton variant="text" width={'100%'}/>
           </div>
         </Grid>
         <Grid item xs={2} sm={3} md={3}>
           <div style={{textAlign:'center'}}>
-            <Skeleton variant="circular" width={200} height={200} style={{margin:'20px auto'}} />
+            <Skeleton variant="circular" width={180} height={180} style={{margin:'20px auto'}} />
             <Skeleton variant="text" width={'100%'}/>
           </div>
         </Grid>
         <Grid item xs={2} sm={3} md={3}>
           <div style={{textAlign:'center'}}>
-            <Skeleton variant="circular" width={200} height={200} style={{margin:'20px auto'}} />
+            <Skeleton variant="circular" width={180} height={180} style={{margin:'20px auto'}} />
             <Skeleton variant="text" width={'100%'}/>
           </div>
         </Grid>
