@@ -27,6 +27,6 @@ export default function ComboBox() {
         onKeyDown={handleEnter}
         sx={{width:'100%',my:3}}
         placeholder={lastSearchTerm}
-      />
+      /> 
     );
 }
