@@ -59,7 +59,7 @@ export default function EventsPage() {
                         sx={{
                         fontWeight: 'bold',
                     }}>
-                        Events
+                        Upcoming Events
                     </Typography>
 
                     <div style={{
