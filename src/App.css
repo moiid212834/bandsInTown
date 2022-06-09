@@ -1,8 +1,13 @@
 html {
     scroll-behavior: smooth!important;
   }
+
+body{
+    overflow-x:hidden;
+}
+
 .AppContainer {
-    min-height: 85vmin;
+    min-height: 90vh;
 }
 
 .App-logo {
@@ -124,4 +129,7 @@ p {
     .d-lg-flex{
         display: flex;
     }
+}
+.hidden-scrolling::-webkit-scrollbar {
+    display: none;
 }

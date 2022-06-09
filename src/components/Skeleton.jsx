@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectArtistStatus } from '../features/artists/ArtistSlice';
 
 export const Grid4Skeleton = (props) => {
-    console.log(props.status)
+  
     return (
         <div style={{ display: props.status === 'loading' ? 'block' : 'none' }}>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -48,7 +48,7 @@ export const SingleSkeleton = () => {
 }
 
 export const Grid4SkeletonCards = (props) => {
-    console.log(props.status)
+
     return (
         <div style={{ display: props.status === 'loading' ? 'block' : 'none', width:'100%' }}>
             <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 9 }}>

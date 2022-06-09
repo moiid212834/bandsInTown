@@ -30,7 +30,7 @@ class Component extends React.PureComponent {
             There seems to be an error
           </Typography>
           <Typography component="p">
-            Please Get in touch with the syste administrator.
+            Please get in touch with the system administrator.
           </Typography>
         </Paper>
       );

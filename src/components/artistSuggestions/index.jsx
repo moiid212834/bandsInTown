@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import {CardActionArea, CardActions} from '@mui/material';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react';
-import { selectArtistStatus, getSuggestions, selectSuggestions, updateSelectedBand} from '../../features/artists/ArtistSlice';
+import { selectArtistStatus, getSuggestions, selectSuggestions, selectBand} from '../../features/artists/ArtistSlice';
 import {useNavigate} from 'react-router-dom';
 import {experimentalStyled as styled} from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/FacebookOutlined';
@@ -32,16 +32,16 @@ export default function Suggestions() {
     const navigate = useNavigate();
 
     function requestSuggestions(){
-        const searchValues = ['the smiths', 'acdc', 'coldplay', 'queen'];
+        const searchValues = ['the smiths', 'maroon5', 'coldplay', 'queen'];
         searchValues.forEach(function(value) {
             dispatch(getSuggestions({url:`https://rest.bandsintown.com/artists/${value}?app_id=foo`}));
         });
 
     }
 
-    function handleClick (id,name) {
-        dispatch(updateSelectedBand(id));
-        dispatch(getEvents(name));
+    function handleClick (band) {
+        dispatch(selectBand(band));
+        dispatch(getEvents(band.name));
         navigate('/events');
         window.scrollTo({top:0, behaviour:'smooth'});
     }
@@ -80,7 +80,7 @@ export default function Suggestions() {
                                     textAlign: 'center'
                                     
                                 }}
-                                onClick={()=>handleClick(element.id,element.name)}
+                                onClick={()=>handleClick(element)}
                                 >
                                     <CardMedia
                                         component="img"

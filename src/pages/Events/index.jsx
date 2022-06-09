@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom';
 export default function EventsPage() {
     const selectedBand = useSelector(selectSelectedBand);
     const imgUrl = selectedBand.image_url;
-    console.log(selectedBand.name,'eventspage')
+    
     const navigate = useNavigate();
     return (
         <div>

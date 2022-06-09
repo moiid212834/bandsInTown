@@ -1,7 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-// import {Artists} from './ArtistsList';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-// import { fetchArtists } from './ArtistApi';
 
 const initialState = {
     eventsList:[],
@@ -9,14 +7,22 @@ const initialState = {
 };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function urlReady(string){
+    let result;
+    result = string.split('\"').join('%27C');
+    result = result.split('/' ).join( '%252F');
+    result = result.split('*' ).join( '%252A');
+    result = result.split('?' ).join( '%253F');
+    return result;
+}
+
 export const getEvents = createAsyncThunk('events/fetchevents', async(artist) => {
-    const url='https://rest.bandsintown.com/artists/'+encodeURIComponent(artist)+'/events?app_id=foo';
+    const url='https://rest.bandsintown.com/artists/'+urlReady(artist)+'/events?app_id=foo';
     console.log(url);
     const response = await fetch(url);
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    console.log('events',data);
     await sleep(2000);
     return data;
 });

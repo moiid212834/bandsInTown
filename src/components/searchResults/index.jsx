@@ -5,8 +5,8 @@ import Avatar from '@mui/material/Avatar';
 import {Button, Grid, Stack, Typography} from '@mui/material'
 import {SingleSkeleton as Skeleton} from '../Skeleton'
 
-import {useSelector} from 'react-redux';
-import {selectSearchedBand, selectSearchStatus, selectSearchTerm} from '../../features/artists/ArtistSlice';
+import {useSelector,useDispatch} from 'react-redux';
+import {selectSearchedBand, selectSearchStatus, selectSearchTerm,selectBand} from '../../features/artists/ArtistSlice';
 import {FacebookOutlined} from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
 import {experimentalStyled as styled} from '@mui/material/styles';
@@ -16,10 +16,16 @@ export default function SearchResults() {
     const searchedBand = useSelector(selectSearchedBand);
     const searchTerm = useSelector(selectSearchTerm);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const Item = styled(Paper)(({theme}) => ({
         ...theme.typography.body2
     }));
+
+    function handleClick(selectedBand){
+        dispatch(selectBand(selectedBand));
+        navigate('/events');
+    }
 
     return (
         <div
@@ -76,9 +82,7 @@ export default function SearchResults() {
                                                         fontWeight:'bold',
                                                         padding:'10px'
                                                     }}
-                                                    onClick={() => {
-                                                    navigate('/events',)
-                                                }}
+                                                    onClick={()=>handleClick(searchedBand)}
                                                     variant="contained"
                                                     color="primary">View Events</Button>
                                                 <FacebookOutlined

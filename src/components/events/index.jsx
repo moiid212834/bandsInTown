@@ -28,11 +28,19 @@ const Item = styled(Card)(({theme}) => ({
     justifyContent: 'space-between'
 }));
 
+function prettyDate(datetime){
+    let date = new Date(datetime);
+    /* Date format you have */
+    let dateMDY = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}, ${date.getFullYear()} - ${('0'+date.getHours()).substr(-2)}:${('0'+date.getMinutes()).substr(-2)}`;
+    /* Date converted to MM-DD-YYYY format */
+    return dateMDY;
+}
+
 export default function Suggestions(props) {
     const dispatch = useDispatch();
     const events = useSelector(selectEventsList);
     const eventsStatus = useSelector(selectEventStatus);
-    console.log(props.artist, "events component")
+
     useEffect(() => {
         dispatch(getEvents(props.artist))
     }, []);
@@ -84,12 +92,12 @@ export default function Suggestions(props) {
                                                     ? 'Concert'
                                                     : element.title}
                                             </Typography>
+                                            
                                             <Typography gutterBottom variant="div" component="div">
-                                                {/* {new Date(element.datetime)} */}
+                                            {element.venue.name}, {element.venue.city}, {element.venue.country}
                                             </Typography>
                                             <Typography gutterBottom variant="div" component="div">
-                                                {element.venue.country}
-                                                , {element.venue.city}, {element.venue.name}
+                                                {prettyDate(element.datetime)}hrs
                                             </Typography>
 
                                         </CardContent>

@@ -10,14 +10,24 @@ const initialState = {
     },
     searchedBand: {},
     selectedBand:{},
+    recentlyViewed:[],
     suggestionList: [],
     status: 'idle', // idle | loading | succeeded | failed
     error: null
 };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function urlReady(string){
+    let result;
+    result = string.split('\"').join('%27C');
+    result = result.split('/' ).join( '%252F');
+    result = result.split('*' ).join( '%252A');
+    result = result.split('?' ).join( '%253F');
+    return result;
+}
+
 export const getArtist = createAsyncThunk('artists/fetchArtist', async(search) => {
-    const response = await fetch('https://rest.bandsintown.com/artists/'+encodeURIComponent(search)+'?app_id=foo')
+    const response = await fetch('https://rest.bandsintown.com/artists/'+urlReady(search)+'?app_id=foo')
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
@@ -46,12 +56,13 @@ export const ArtistSlice = createSlice({
         searchArtist: (state, action) => {
             state.search.term = action.payload;
         },
-        updateSelectedBand:(state,action)=> {
-            state.suggestionList.forEach((suggested)=>{
-                if(suggested.id===action.payload)
-                    state.selectedBand = suggested;
-            })
-        }
+        selectBand:(state,action) =>{
+            state.selectedBand=action.payload;
+            var i = state.recentlyViewed.findIndex(x => (x.id === action.payload.id));
+            if(i <= -1){
+                state.recentlyViewed.push(action.payload);
+            }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getArtist.pending, (state) => {
@@ -59,7 +70,6 @@ export const ArtistSlice = createSlice({
         }).addCase(getArtist.fulfilled, (state, action) => {
             state.search.status = 'succeeded';
             state.searchedBand = action.payload;
-            state.selectedBand = action.payload;
         })
 
         builder.addCase(getSuggestions.pending, (state) => {
@@ -73,7 +83,7 @@ export const ArtistSlice = createSlice({
 
 export const {
     searchArtist,
-    updateSelectedBand,
+    selectBand,
 } = ArtistSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -85,5 +95,7 @@ export const selectArtistStatus = (state) => state.artists.status;
 export const selectArtistError = (state) => state.artists.error;
 export const selectSearchTerm = (state) => state.artists.search.term;
 export const selectSearchStatus = (state) => state.artists.search.status;
+export const selectRecentlyViewed = (state) => state.artists.recentlyViewed;
+
 
 export default ArtistSlice.reducer;
