@@ -13,6 +13,7 @@ import FacebookIcon from '@mui/icons-material/FacebookOutlined';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import {Grid4Skeleton as Skeleton} from '../Skeleton';
+import { getEvents } from '../../features/events/EventsSlice';
 
 const Item = styled(Card)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark'
@@ -38,9 +39,11 @@ export default function Suggestions() {
 
     }
 
-    function handleClick (id) {
+    function handleClick (id,name) {
         dispatch(updateSelectedBand(id));
+        dispatch(getEvents(name));
         navigate('/events');
+        window.scrollTo({top:0, behaviour:'smooth'});
     }
 
     useEffect(() => {
@@ -77,7 +80,7 @@ export default function Suggestions() {
                                     textAlign: 'center'
                                     
                                 }}
-                                onClick={()=>handleClick(element.id)}
+                                onClick={()=>handleClick(element.id,element.name)}
                                 >
                                     <CardMedia
                                         component="img"

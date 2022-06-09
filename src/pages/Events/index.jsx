@@ -2,16 +2,16 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import {IconButton, Stack} from '@mui/material';
 import {useSelector} from 'react-redux';
-import {selectSearchedBand} from '../../features/artists/ArtistSlice';
+import {selectSelectedBand} from '../../features/artists/ArtistSlice';
 import Events from '../../components/events';
 import Suggestions from '../../components/artistSuggestions';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate} from 'react-router-dom';
 
 export default function EventsPage() {
-    const searchedBand = useSelector(selectSearchedBand);
-    const imgUrl = searchedBand.image_url;
-    console.log(searchedBand.name,'eventspage')
+    const selectedBand = useSelector(selectSelectedBand);
+    const imgUrl = selectedBand.image_url;
+    console.log(selectedBand.name,'eventspage')
     const navigate = useNavigate();
     return (
         <div>
@@ -44,7 +44,7 @@ export default function EventsPage() {
                         fontWeight: 'bold',
                         textShadowRadius: 10
                     }}>
-                        {searchedBand.name}
+                        {selectedBand.name}
                     </Typography>
                 </div>
             </div>
@@ -65,7 +65,7 @@ export default function EventsPage() {
                     <div style={{
                         paddingTop: '10px'
                     }}>
-                        <Events artist={searchedBand.name}></Events>
+                        <Events artist={selectedBand.name}></Events>
                     </div>
                 </div>
             </Stack>

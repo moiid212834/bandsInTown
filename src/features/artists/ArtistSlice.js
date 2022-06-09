@@ -9,6 +9,7 @@ const initialState = {
         status: 'idle', // idle | loading | succeeded | failed
     },
     searchedBand: {},
+    selectedBand:{},
     suggestionList: [],
     status: 'idle', // idle | loading | succeeded | failed
     error: null
@@ -48,7 +49,7 @@ export const ArtistSlice = createSlice({
         updateSelectedBand:(state,action)=> {
             state.suggestionList.forEach((suggested)=>{
                 if(suggested.id===action.payload)
-                    state.searchedBand = suggested;
+                    state.selectedBand = suggested;
             })
         }
     },
@@ -58,6 +59,7 @@ export const ArtistSlice = createSlice({
         }).addCase(getArtist.fulfilled, (state, action) => {
             state.search.status = 'succeeded';
             state.searchedBand = action.payload;
+            state.selectedBand = action.payload;
         })
 
         builder.addCase(getSuggestions.pending, (state) => {
@@ -77,6 +79,7 @@ export const {
 // The function below is called a selector and allows us to select a value from
 // the state
 export const selectSearchedBand = (state) => state.artists.searchedBand;
+export const selectSelectedBand = (state) => state.artists.selectedBand;
 export const selectSuggestions = (state) => state.artists.suggestionList;
 export const selectArtistStatus = (state) => state.artists.status;
 export const selectArtistError = (state) => state.artists.error;
