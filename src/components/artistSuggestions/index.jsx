@@ -3,70 +3,113 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { selectAll,selectArtistStatus,selectArtistError,getArtists } from '../../features/artists/ArtistSlice';
-
-import { experimentalStyled as styled} from '@mui/material/styles';
+import {CardActionArea, CardActions} from '@mui/material';
+import {useSelector, useDispatch} from 'react-redux';
+import {useEffect} from 'react';
+import { selectArtistStatus, getSuggestions, selectSuggestions, updateSelectedBand} from '../../features/artists/ArtistSlice';
+import {useNavigate} from 'react-router-dom';
+import {experimentalStyled as styled} from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/FacebookOutlined';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import {Grid4Skeleton as Skeleton} from '../Skeleton';
 
-const Item = styled(Card)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#121212' : '#f1f1f1',
+const Item = styled(Card)(({theme}) => ({
+    backgroundColor: theme.palette.mode === 'dark'
+        ? '#121212'
+        : '#f1f1f1',
     ...theme.typography.body2,
     padding: 0,
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+    color: theme.palette.text.secondary
+}));
 
-export default function MultiActionAreaCard() {
-  const dispatch = useDispatch();
+export default function Suggestions() {
+    const dispatch = useDispatch();
+    const suggestions = useSelector(selectSuggestions);
+    const artistStatus = useSelector(selectArtistStatus);
+    const navigate = useNavigate();
 
-  const suggestions = useSelector(selectAll);
-  const artistStatus = useSelector(selectArtistStatus);
-  const artisError = useSelector(selectArtistError);
-  
-  useEffect(()=>{
-    if(artistStatus==='idle'){
-        dispatch(getArtists());
+    function requestSuggestions(){
+        const searchValues = ['the smiths', 'acdc', 'coldplay', 'queen'];
+        searchValues.forEach(function(value) {
+            dispatch(getSuggestions({url:`https://rest.bandsintown.com/artists/${value}?app_id=foo`}));
+        });
+
     }
-  });
 
-  return (
-    <Box>
-        <Typography variant="h4" marginBottom={2}>Suggested Artists</Typography>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {suggestions.slice(0,4).map(element =>(
-            <Grid item xs={2} sm={3} md={3}>
-                <Item> 
-                    <CardActionArea style={{textAlign:'center'}}>
-                        <CardMedia
-                            component="img"
-                            image={element.image_url}
-                            alt="green iguana"
-                            style={{margin:'0 auto', padding:'20px',borderRadius:'50%', objectFit:'cover', height:'180px',width:'180px'}}
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                            {element.name}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                            species, ranging across all continents except Antarctica
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                    <CardActions>
-                        <FacebookIcon 
-                            className={'clickableIcon'}
-                            onClick = {()=> {window.location.href= element.facebook_page_url}}
-                        ></FacebookIcon>
-                    </CardActions>
-                </Item>    
-            </Grid>))} 
-        </Grid>
-    </Box>
+    function handleClick (id) {
+        dispatch(updateSelectedBand(id));
+        navigate('/events');
+    }
+
+    useEffect(() => {
+        if (artistStatus === 'idle') {
+            requestSuggestions();
+        }
+    },[]);
+    
+    return (
+        
+        <Box sx={{
+            mb: 7
+        }}>
+            <Typography variant="h4" marginBottom={2}>Suggested Artists</Typography>
+            <Skeleton status={artistStatus}></Skeleton>
+            <Grid
+                container
+                spacing={{
+                xs: 2,
+                md: 3
+            }}
+                columns={{
+                xs: 4,
+                sm: 8,
+                md: 12
+            }}>
+                {suggestions
+                    .slice(0, 4)
+                    .map((element,key) => (
+                        <Grid key={element.id} item xs={2} sm={3} md={3}>
+                            <Item>
+                                <CardActionArea
+                                    style={{
+                                    textAlign: 'center'
+                                    
+                                }}
+                                onClick={()=>handleClick(element.id)}
+                                >
+                                    <CardMedia
+                                        component="img"
+                                        image={element.thumb_url}
+                                        alt="green iguana"
+                                        className='cicular--portrait'
+                                        style={{
+                                        margin: '0 auto',
+                                        padding: '20px',
+                                        
+                                        }}
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {element.name}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions>
+                                    <FacebookIcon
+                                        style={{
+                                        margin: '0 auto'
+                                    }}
+                                        className={'clickableIcon'}
+                                        onClick={() => {
+                                        window.location.href = element.facebook_page_url
+                                    }}></FacebookIcon>
+                                </CardActions>
+                            </Item>
+                        </Grid>
+                    ))}
+            </Grid>
+        </Box>
     );
 }
