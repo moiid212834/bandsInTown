@@ -59,7 +59,7 @@ export default function ViewedRecently() {
                         overflowY: 'hidden',
                         position: 'relative'
                     }}>
-                        <IconButton
+                        {/* <IconButton
                             variant='contained'
                             // onClick={() => slideRight()}
                             sx={{
@@ -71,7 +71,7 @@ export default function ViewedRecently() {
                             boxShadow: '1px 1px 10px 4px black'
                         }}>
                             <ArrowForwardIcon></ArrowForwardIcon>
-                        </IconButton>
+                        </IconButton> */}
                         <ScrollContainer>
 
                             <Skeleton status={artistStatus}></Skeleton>
