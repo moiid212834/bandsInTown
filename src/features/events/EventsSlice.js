@@ -18,7 +18,6 @@ function urlReady(string){
 
 export const getEvents = createAsyncThunk('events/fetchevents', async(artist) => {
     const url='https://rest.bandsintown.com/artists/'+urlReady(artist)+'/events?app_id=foo';
-    console.log(url);
     const response = await fetch(url);
     // The value we return becomes the `fulfilled` action payload return
     // response.json;

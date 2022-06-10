@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import {Button, Grid, Stack, Typography} from '@mui/material'
 import {SingleSkeleton as Skeleton} from '../Skeleton'
 
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {selectSearchedBand, selectSearchStatus, selectSearchTerm} from '../../features/artists/ArtistSlice';
 import {FacebookOutlined} from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
@@ -21,8 +21,8 @@ export default function SearchResults() {
         ...theme.typography.body2
     }));
 
-    function handleClick(selectedBand){
-        navigate('/events/'+encodeURIComponent(selectedBand.name));
+    function handleClick(selectedBand) {
+        navigate('/events/' + encodeURIComponent(selectedBand.name));
     }
 
     return (
@@ -52,8 +52,29 @@ export default function SearchResults() {
                             xs: 0
                         }}>
                             <Grid item xs={12} sm={8} md={5}>
-
+                                <div
+                                    style={{
+                                    display: searchedBand.error
+                                        ? 'block'
+                                        : 'none',
+                                        marginLeft:"20px"
+                                }}>
+                                    <div
+                                    style={{
+                                        fontSize:'30px',
+                                        fontWeight:'bolder'
+                                    }}
+                                    >
+                                        :(
+                                    </div>
+                                    <h5 style={{marginTop:"5px"}}>No matching results found! Please try to search for a valid band name!</h5>
+                                </div>
                                 <Item
+                                    style={{
+                                    display: searchedBand.error
+                                        ? 'none'
+                                        : 'block'
+                                }}
                                     elevation={6}
                                     sx={{
                                     p: 2
@@ -65,7 +86,7 @@ export default function SearchResults() {
                                             height: 'auto',
                                             mr: 4
                                         }}
-                                            src={searchedBand.image_url}></Avatar>
+                                            src={searchedBand.thumb_url}></Avatar>
                                         <div>
                                             <Typography variant='h2'>{searchedBand.name}</Typography>
                                             <Stack
@@ -76,11 +97,11 @@ export default function SearchResults() {
                                             }}>
                                                 <Button
                                                     style={{
-                                                        fontSize:'80%',
-                                                        fontWeight:'bold',
-                                                        padding:'10px'
-                                                    }}
-                                                    onClick={()=>handleClick(searchedBand)}
+                                                    fontSize: '80%',
+                                                    fontWeight: 'bold',
+                                                    padding: '10px'
+                                                }}
+                                                    onClick={() => handleClick(searchedBand)}
                                                     variant="contained"
                                                     color="primary">View Events</Button>
                                                 <FacebookOutlined

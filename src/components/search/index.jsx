@@ -19,7 +19,7 @@ export default function ComboBox() {
 
     React.useEffect(()=>{
       if(lastSearchTerm){
-        console.log('last search term', lastSearchTerm);
+        setSearchTerm(lastSearchTerm);
         dispatch(getArtist(lastSearchTerm));
         }
       },[])
@@ -33,8 +33,6 @@ export default function ComboBox() {
         onChange={e => setSearchTerm(e.target.value)}
         onKeyDown={handleEnter}
         sx={{width:'100%',my:3}}
-        placeholder={lastSearchTerm}
-        focused = {lastSearchTerm!==""||lastSearchTerm!==undefined? true : false }
       /> 
     );
 }
