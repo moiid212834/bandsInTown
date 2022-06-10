@@ -31,7 +31,7 @@ function App() {
                 <ErrorBoundary>
                     <React.Suspense fallback={<Loader/>}>
                     <Routes>
-                        <Route path="/events" element={< EventsPage />}></Route>
+                        <Route path="/events/:id" element={< EventsPage />}></Route>
                         <Route path="/" element={< HomePage />}></Route>
                         <Route element={< NotFoundPage />}></Route>
                     </Routes>

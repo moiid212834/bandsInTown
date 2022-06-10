@@ -23,7 +23,7 @@ const Item = styled(Card)(({theme}) => ({
     padding: 0,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    width: '200px'
+    width: '230px'
 }));
 
 export default function ViewedRecently() {
@@ -33,9 +33,7 @@ export default function ViewedRecently() {
     const navigate = useNavigate();
 
     function handleClick(band) {
-        dispatch(selectBand(band));
-        dispatch(getEvents(band.name));
-        navigate('/events');
+        navigate('/events/'+band.name);
         window.scrollTo({top: 0, behaviour: 'smooth'});
     }
 
@@ -112,16 +110,6 @@ export default function ViewedRecently() {
                                                         </Typography>
                                                     </CardContent>
                                                 </CardActionArea>
-                                                {/* <CardActions>
-                                                <FacebookIcon
-                                                    style={{
-                                                    margin: '0 auto'
-                                                }}
-                                                    className={'clickableIcon'}
-                                                    onClick={() => {
-                                                    window.location.href = element.facebook_page_url
-                                                }}></FacebookIcon>
-                                            </CardActions> */}
                                             </Item>
                                         </Grid>
                                     ))}

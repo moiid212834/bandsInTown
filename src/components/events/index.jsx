@@ -43,7 +43,7 @@ export default function Suggestions(props) {
 
     useEffect(() => {
         dispatch(getEvents(props.artist))
-    }, []);
+    }, [props.artist]);
 
     return (
         <Box sx={{mb: 7}}>

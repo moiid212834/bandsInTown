@@ -24,7 +24,7 @@ export default function SearchResults() {
 
     function handleClick(selectedBand){
         dispatch(selectBand(selectedBand));
-        navigate('/events');
+        navigate('/events/'+selectedBand.name);
     }
 
     return (

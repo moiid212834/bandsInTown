@@ -23,7 +23,6 @@ export const getEvents = createAsyncThunk('events/fetchevents', async(artist) =>
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    await sleep(2000);
     return data;
 });
 
@@ -44,10 +43,6 @@ export const EventsSlice = createSlice({
         });;
     }
 });
-
-export const {
-    searchArtist,
-} = EventsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state

@@ -31,7 +31,16 @@ export const getArtist = createAsyncThunk('artists/fetchArtist', async(search) =
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    await sleep(2000);
+    
+    return data;
+});
+
+export const getAndSelectArtist = createAsyncThunk('artists/fetchAndSelectArtist', async(search) => {
+    const response = await fetch('https://rest.bandsintown.com/artists/'+urlReady(search)+'?app_id=foo')
+    // The value we return becomes the `fulfilled` action payload return
+    // response.json;
+    const data = await response.json();
+    
     return data;
 });
 
@@ -40,7 +49,7 @@ export const getSuggestions = createAsyncThunk('artists/fetchSuggestions', async
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    await sleep(2000);
+    
     return data;
 });
 
@@ -70,6 +79,17 @@ export const ArtistSlice = createSlice({
         }).addCase(getArtist.fulfilled, (state, action) => {
             state.search.status = 'succeeded';
             state.searchedBand = action.payload;
+        })
+
+        builder.addCase(getAndSelectArtist.pending, (state) => {
+            state.status = 'loading';
+        }).addCase(getAndSelectArtist.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.selectedBand = action.payload;
+            var i = state.recentlyViewed.findIndex(x => (x.id === action.payload.id));
+            if(i <= -1){
+                state.recentlyViewed.push(action.payload);
+            }
         })
 
         builder.addCase(getSuggestions.pending, (state) => {

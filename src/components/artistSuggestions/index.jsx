@@ -40,9 +40,7 @@ export default function Suggestions() {
     }
 
     function handleClick (band) {
-        dispatch(selectBand(band));
-        dispatch(getEvents(band.name));
-        navigate('/events');
+        navigate('/events/'+band.name);
         window.scrollTo({top:0, behaviour:'smooth'});
     }
 
@@ -72,7 +70,7 @@ export default function Suggestions() {
             }}>
                 {suggestions
                     .slice(0, 4)
-                    .map((element,key) => (
+                    .map((element) => (
                         <Grid key={element.id} item xs={2} sm={3} md={3}>
                             <Item>
                                 <CardActionArea
