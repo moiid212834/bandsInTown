@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import {IconButton, Stack} from '@mui/material';
 import {useSelector,useDispatch} from 'react-redux';
-import {selectSelectedBand,getAndSelectArtist, selectSearchedBand} from '../../features/artists/ArtistSlice';
+import {selectSelectedBand,getAndSelectArtist, selectArtistStatus} from '../../features/artists/ArtistSlice';
 import Events from '../../components/events';
 import Suggestions from '../../components/artistSuggestions';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -11,6 +11,7 @@ import {useEffect} from 'react';
 
 export default function EventsPage() {
     const selectedBand = useSelector(selectSelectedBand);
+    const artistStatus = useSelector(selectArtistStatus);
     const imgUrl = selectedBand.image_url;
     const params = useParams();
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function EventsPage() {
             <div
                 className="coolBackground"
                 style={{
-                backgroundImage: "url(" + imgUrl + ")"
+                backgroundImage: artistStatus === 'succeeded' ? "url(" + imgUrl + ")" : 'unset',
             }}>
                 <div
                     className="blur"
@@ -51,7 +52,7 @@ export default function EventsPage() {
                         fontWeight: 'bold',
                         textShadowRadius: 10
                     }}>
-                        {selectedBand.name}
+                        {artistStatus === 'succeeded' ? selectedBand.name : ''}
                     </Typography>
                 </div>
             </div>

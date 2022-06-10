@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import {CardActionArea, CardActions} from '@mui/material';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react';
-import { selectArtistStatus, getSuggestions, selectSuggestions, selectBand} from '../../features/artists/ArtistSlice';
+import { selectSuggestedArtistStatus, getSuggestions, selectSuggestions, selectBand} from '../../features/artists/ArtistSlice';
 import {useNavigate} from 'react-router-dom';
 import {experimentalStyled as styled} from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/FacebookOutlined';
@@ -28,7 +28,7 @@ const Item = styled(Card)(({theme}) => ({
 export default function Suggestions() {
     const dispatch = useDispatch();
     const suggestions = useSelector(selectSuggestions);
-    const artistStatus = useSelector(selectArtistStatus);
+    const suggestionStatus = useSelector(selectSuggestedArtistStatus);
     const navigate = useNavigate();
 
     function requestSuggestions(){
@@ -45,7 +45,7 @@ export default function Suggestions() {
     }
 
     useEffect(() => {
-        if (artistStatus === 'idle') {
+        if (suggestionStatus === 'idle') {
             requestSuggestions();
         }
     },[]);
@@ -56,7 +56,7 @@ export default function Suggestions() {
             mb: 7
         }}>
             <Typography variant="h4" marginBottom={2}>Suggested Artists</Typography>
-            <Skeleton status={artistStatus}></Skeleton>
+            <Skeleton status={suggestionStatus}></Skeleton>
             <Grid
                 container
                 spacing={{
@@ -83,7 +83,7 @@ export default function Suggestions() {
                                     <CardMedia
                                         component="img"
                                         image={element.thumb_url}
-                                        alt="green iguana"
+                                        alt={element.name}
                                         className='cicular--portrait'
                                         style={{
                                         margin: '0 auto',

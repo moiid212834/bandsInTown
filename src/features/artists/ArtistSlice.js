@@ -11,7 +11,10 @@ const initialState = {
     searchedBand: {},
     selectedBand:{},
     recentlyViewed:[],
-    suggestionList: [],
+    suggested:{
+        suggestionList: [],
+        status:'idle', // idle | loading | succeeded | failed
+    },
     status: 'idle', // idle | loading | succeeded | failed
     error: null
 };
@@ -100,10 +103,10 @@ export const ArtistSlice = createSlice({
         })
 
         builder.addCase(getSuggestions.pending, (state) => {
-            state.status = 'loading';
+            state.suggested.status = 'loading';
         }).addCase(getSuggestions.fulfilled, (state, action) => {
-            state.status = 'succeeded';
-            state.suggestionList = [...state.suggestionList,action.payload];
+            state.suggested.status = 'succeeded';
+            state.suggested.suggestionList = [...state.suggested.suggestionList,action.payload];
         });;
     }
 });
@@ -118,9 +121,14 @@ export const {
 // The function below is called a selector and allows us to select a value from
 // the state
 export const selectSearchedBand = (state) => state.artists.searchedBand;
-export const selectSelectedBand = (state) => state.artists.selectedBand;
-export const selectSuggestions = (state) => state.artists.suggestionList;
 export const selectArtistStatus = (state) => state.artists.status;
+
+export const selectSelectedBand = (state) => state.artists.selectedBand;
+
+export const selectSuggestions = (state) => state.artists.suggested.suggestionList;
+export const selectSuggestedArtistStatus = (state) => state.artists.suggested.status;
+
+
 export const selectArtistError = (state) => state.artists.error;
 export const selectSearchTerm = (state) => state.artists.search.term;
 export const selectSearchStatus = (state) => state.artists.search.status;
