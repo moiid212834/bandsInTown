@@ -54,7 +54,7 @@ export default function SearchResults() {
                             <Grid item xs={12} sm={8} md={5}>
                                 <div
                                     style={{
-                                    display: searchedBand.error
+                                    display: searchedBand.error || !searchedBand
                                         ? 'block'
                                         : 'none',
                                         marginLeft:"20px"
@@ -71,7 +71,7 @@ export default function SearchResults() {
                                 </div>
                                 <Item
                                     style={{
-                                    display: searchedBand.error
+                                    display: searchedBand.error || !searchedBand
                                         ? 'none'
                                         : 'block'
                                 }}
