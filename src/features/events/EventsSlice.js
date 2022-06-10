@@ -5,11 +5,10 @@ const initialState = {
     eventsList:[],
     status:'idle'
 };
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function urlReady(string){
     let result;
-    result = string.split('\"').join('%27C');
+    result = string.split('"').join('%27C');
     result = result.split('/' ).join( '%252F');
     result = result.split('*' ).join( '%252A');
     result = result.split('?' ).join( '%253F');

@@ -16,11 +16,17 @@ export const ThemeSlice = createSlice({
   reducers: {
     toggleMode: (state) => {
       state.mode = state.mode === 'light' ? 'dark' : 'light';
+      localStorage.setItem("preferedMode",state.mode);
+    },
+    rehydrateMode: (state) =>{
+      if(localStorage.getItem("preferedMode") === null || localStorage.getItem("preferedMode") === 'undefined' || localStorage.getItem("preferedMode") === '')
+      state.mode = 'dark';
+      else state.mode = localStorage.getItem("preferedMode") ;
     }
   },
 });
 
-export const { toggleMode } = ThemeSlice.actions;
+export const { toggleMode,rehydrateMode } = ThemeSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state

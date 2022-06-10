@@ -13,6 +13,7 @@ import Footer from './components/footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Loader from './components/Loader'
 import { rehydrateRecentlyViewed, rehydrateSearch, } from './features/artists/ArtistSlice';
+import {rehydrateMode} from './features/theme/ThemeSlice';
 
 const EventsPage = React.lazy(() => import ('./pages/Events'));
 const HomePage = React.lazy(() => import ('./pages/Home'));
@@ -29,6 +30,7 @@ function App() {
     useEffect(()=>{
         dispatch(rehydrateRecentlyViewed());
         dispatch(rehydrateSearch());
+        dispatch(rehydrateMode());
     },[]);
 
     return (
