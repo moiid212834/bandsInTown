@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="MuiBox-root css-1r1aq4"
+>
+  <div>
+    <div
+      style={Object {}}
+    >
+      No Events Found
+    </div>
+  </div>
+</div>
+`;

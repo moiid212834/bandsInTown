@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="MuiBox-root css-i9gxme"
+  style={
+    Object {
+      "backgroundColor": "#222",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "justifyContent": "center",
+        "margin": "10px auto 0px",
+        "padding": "10px",
+      }
+    }
+  >
+    <div
+      className="MuiTypography-root MuiTypography-div css-1dqc7pm-MuiTypography-root"
+    >
+      © Copyright 2022
+    </div>
+  </div>
+</div>
+`;

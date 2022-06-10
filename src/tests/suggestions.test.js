@@ -1,17 +1,19 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {store} from './app/store';
-import App from './App';
+import {store} from '../app/store';
+import Suggestions from '../components/artistSuggestions';
 import {BrowserRouter as Router} from 'react-router-dom';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-    const tree = renderer.create(
+    const tree = renderer
+        .create(
         <Provider store={store}>
             <Router>
-                <App/>
+                <Suggestions></Suggestions>
             </Router>
         </Provider>
-    ).toJSON();
+    )
+        .toJSON();
     expect(tree).toMatchSnapshot();
 });
