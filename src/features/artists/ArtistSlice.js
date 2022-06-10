@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-// import {Artists} from './ArtistsList';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-// import { fetchArtists } from './ArtistApi';
+import {useNavigate} from 'react-router-dom';
+
 
 const initialState = {
     search:{
@@ -96,7 +96,7 @@ export const ArtistSlice = createSlice({
             state.status = 'succeeded';
             state.selectedBand = action.payload;
             var i = state.recentlyViewed.findIndex(x => (x.id === action.payload.id));
-            if(i <= -1){
+            if(i <= -1 && action.payload.id){
                 state.recentlyViewed.push(action.payload);
                 localStorage.setItem("recentlyViewed",JSON.stringify(state.recentlyViewed));
             }
@@ -130,6 +130,7 @@ export const selectSuggestedArtistStatus = (state) => state.artists.suggested.st
 
 
 export const selectArtistError = (state) => state.artists.error;
+
 export const selectSearchTerm = (state) => state.artists.search.term;
 export const selectSearchStatus = (state) => state.artists.search.status;
 export const selectRecentlyViewed = (state) => state.artists.recentlyViewed;

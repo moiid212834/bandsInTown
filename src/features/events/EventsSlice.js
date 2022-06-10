@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import{useNavigate} from 'react-router-dom';
 
 const initialState = {
     eventsList:[],
@@ -38,7 +39,11 @@ export const EventsSlice = createSlice({
         }).addCase(getEvents.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.eventsList = action.payload;
-        });;
+        }).addCase(getEvents.rejected, (state, action) => {
+            console.log(action.payload);
+            state.status = 'failed';
+            state.eventsList = action.payload;
+        });
     }
 });
 

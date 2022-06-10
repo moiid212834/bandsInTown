@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import {IconButton, Stack} from '@mui/material';
-import {useSelector,useDispatch} from 'react-redux';
-import {selectSelectedBand,getAndSelectArtist, selectArtistStatus} from '../../features/artists/ArtistSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {selectSelectedBand, getAndSelectArtist, selectArtistStatus} from '../../features/artists/ArtistSlice';
 import Events from '../../components/events';
 import Suggestions from '../../components/artistSuggestions';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useNavigate,useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 
 export default function EventsPage() {
@@ -16,23 +16,26 @@ export default function EventsPage() {
     const params = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(getAndSelectArtist(params.id));
-    },[params.id])
+    }, [params.id])
 
     return (
         <div>
+
             <div
                 className="coolBackground"
                 style={{
-                backgroundImage: artistStatus === 'succeeded' ? "url(" + imgUrl + ")" : 'unset',
+                backgroundImage: artistStatus === 'succeeded'
+                    ? "url(" + imgUrl + ")"
+                    : 'unset'
             }}>
                 <div
                     className="blur"
                     style={{
                     padding: '20px',
-                    color:'white'
+                    color: 'white'
                 }}>
                     <IconButton
                         style={{
@@ -41,31 +44,47 @@ export default function EventsPage() {
                         fontSize: '20px',
                         fontWeight: 'bold',
                         borderRadius: '10px',
-                        color:'white'
+                        color: 'white'
                     }}
                         onClick={() => navigate('/')}>
                         <ArrowBackIcon ></ArrowBackIcon>&nbsp;&nbsp;Back
                     </IconButton>
-                    <Typography
-                        variant="h1"
-                        sx={{
-                        fontWeight: 'bold',
-                        textShadowRadius: 10
-                    }}>
-                        {artistStatus === 'succeeded' ? selectedBand.name : ''}
-                    </Typography>
+                    {selectedBand.error
+                        ? (
+                            <Typography
+                                variant="h1"
+                                sx={{
+                                fontWeight: 'bold',
+                                textShadowRadius: 10
+                            }}>
+                                No Artist Found
+                            </Typography>
+                        )
+                        : (
+                            <Typography
+                                variant="h1"
+                                sx={{
+                                fontWeight: 'bold',
+                                textShadowRadius: 10
+                            }}>
+                                {artistStatus === 'succeeded'
+                                    ? selectedBand.name
+                                    : ''}
+                            </Typography>
+                        )}
                 </div>
             </div>
             <Stack direction={'row'}>
 
-                <div style={{
+                <div
+                    style={{
                     padding: '20px',
-                    width:'100%'
+                    width: '100%'
                 }}>
                     <Typography
                         variant="h2"
                         sx={{
-                        fontWeight: 'bold',
+                        fontWeight: 'bold'
                     }}>
                         Upcoming Events
                     </Typography>

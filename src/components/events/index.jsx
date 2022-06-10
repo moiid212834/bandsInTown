@@ -53,7 +53,7 @@ export default function Suggestions(props) {
             )
             : (
                 <div>
-            {events.length < 1
+            {events.length < 1 || events.errorMessage
                 ? (
                     <div style={{}}>
                         No Events Found
