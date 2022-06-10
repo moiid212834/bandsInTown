@@ -1,35 +1,89 @@
-import { Skeleton} from '@mui/material';
-import { Grid,Stack } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { selectArtistStatus } from '../features/artists/ArtistSlice';
+import {Skeleton} from '@mui/material';
+import {Grid, Stack} from '@mui/material';
+import {useSelector} from 'react-redux';
+import {selectArtistStatus} from '../features/artists/ArtistSlice';
 
+/**
+ * Skeleton for Artist Suggesttions
+ */
 export const Grid4Skeleton = (props) => {
-  
+
     return (
-        <div style={{ display: props.status === 'loading' ? 'block' : 'none' }}>
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <div
+            style={{
+            display: props.status === 'loading'
+                ? 'block'
+                : 'none'
+        }}>
+            <Grid
+                container
+                spacing={{
+                xs: 2,
+                md: 3
+            }}
+                columns={{
+                xs: 4,
+                sm: 8,
+                md: 12
+            }}>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="circular"  style={{ margin: '20px auto', height:'150px', width:'150px' }} />
-                        <Skeleton variant="text" width={'100%'} />
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="circular"
+                            style={{
+                            margin: '20px auto',
+                            height: '150px',
+                            width: '150px'
+                        }}/>
+                        <Skeleton variant="text" width={'100%'}/>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="circular"  style={{ margin: '20px auto', height:'150px', width:'150px' }} />
-                        <Skeleton variant="text" width={'100%'} />
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="circular"
+                            style={{
+                            margin: '20px auto',
+                            height: '150px',
+                            width: '150px'
+                        }}/>
+                        <Skeleton variant="text" width={'100%'}/>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="circular"  style={{ margin: '20px auto', height:'150px', width:'150px' }} />
-                        <Skeleton variant="text" width={'100%'} />
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="circular"
+                            style={{
+                            margin: '20px auto',
+                            height: '150px',
+                            width: '150px'
+                        }}/>
+                        <Skeleton variant="text" width={'100%'}/>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="circular"  style={{ margin: '20px auto', height:'150px', width:'150px' }} />
-                        <Skeleton variant="text" width={'100%'} />
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="circular"
+                            style={{
+                            margin: '20px auto',
+                            height: '150px',
+                            width: '150px'
+                        }}/>
+                        <Skeleton variant="text" width={'100%'}/>
                     </div>
                 </Grid>
             </Grid>
@@ -37,64 +91,185 @@ export const Grid4Skeleton = (props) => {
     )
 }
 
+/**
+ * Skeleton for Search Results
+ */
 export const SingleSkeleton = () => {
     return (
         <Stack direction="row" spacing={2}>
-            <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
-            <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
-            <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+            <Skeleton
+                variant="rectangular"
+                width='100%'
+                height="130px"
+                sx={{
+                borderRadius: '7px'
+            }}></Skeleton>
+            <Skeleton
+                variant="rectangular"
+                width='100%'
+                height="130px"
+                sx={{
+                borderRadius: '7px'
+            }}></Skeleton>
+            <Skeleton
+                variant="rectangular"
+                width='100%'
+                height="130px"
+                sx={{
+                borderRadius: '7px'
+            }}></Skeleton>
         </Stack>
     )
 }
 
+/**
+ * Skeleton for Events
+ */
 export const Grid4SkeletonCards = (props) => {
 
     return (
-        <div style={{ display: props.status === 'loading' ? 'block' : 'none', width:'100%' }}>
-            <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 9 }}>
+        <div
+            style={{
+            display: props.status === 'loading'
+                ? 'block'
+                : 'none',
+            width: '100%'
+        }}>
+            <Grid
+                container
+                spacing={{
+                xs: 2,
+                md: 2
+            }}
+                columns={{
+                xs: 1,
+                sm: 2,
+                md: 9
+            }}>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
                 <Grid item xs={2} sm={3} md={3}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Skeleton variant="rectangular" width='100%' height="130px" sx={{borderRadius:'7px'}}></Skeleton>
+                    <div
+                        style={{
+                        textAlign: 'center'
+                    }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width='100%'
+                            height="130px"
+                            sx={{
+                            borderRadius: '7px'
+                        }}></Skeleton>
                     </div>
                 </Grid>
             </Grid>

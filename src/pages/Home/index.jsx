@@ -5,6 +5,7 @@ import RecentlyViewed from '../../components/viewedRecently';
 import SearchResults from '../../components/searchResults';
 import {Container} from '@mui/system';
 
+//Home page
 export default function Home() {
     return (
         <Container className='AppContainer'>

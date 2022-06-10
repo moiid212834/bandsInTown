@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {useNavigate} from 'react-router-dom';
+
 
 
 const initialState = {
@@ -19,6 +19,8 @@ const initialState = {
     error: null
 };
 
+
+//Pretty the URL for the bands in town API according to Swagger documentation. 
 function urlReady(string){
     let result;
     result = string.split('"').join('%27C');
@@ -28,6 +30,8 @@ function urlReady(string){
     return result;
 }
 
+//Async reducer to fetch a single artist
+//@params search - search term passed through the Search Component
 export const getArtist = createAsyncThunk('artists/fetchArtist', async(search) => {
     const response = await fetch('https://rest.bandsintown.com/artists/'+urlReady(search)+'?app_id=foo')
     // The value we return becomes the `fulfilled` action payload return
@@ -36,6 +40,8 @@ export const getArtist = createAsyncThunk('artists/fetchArtist', async(search) =
     return data;
 });
 
+//Async reducer to fetch a single artist and select the artist by updating the selectedArtist state in the redux store
+//@params search - search term passed through the Events Page
 export const getAndSelectArtist = createAsyncThunk('artists/fetchAndSelectArtist', async(search) => {
     const response = await fetch('https://rest.bandsintown.com/artists/'+urlReady(search)+'?app_id=foo')
     // The value we return becomes the `fulfilled` action payload return
@@ -44,6 +50,8 @@ export const getAndSelectArtist = createAsyncThunk('artists/fetchAndSelectArtist
     return data;
 });
 
+//Async reducer to fetch a single artist through the URL
+//@params payload - URL passed through the artistSuggestion Component 
 export const getSuggestions = createAsyncThunk('artists/fetchSuggestions', async(payload) => {
     const response = await fetch(payload.url)
     // The value we return becomes the `fulfilled` action payload return
@@ -61,14 +69,19 @@ export const ArtistSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
+        //updating the search term in the redux store and pushing it to local storage
         searchArtist: (state, action) => {
             state.search.term = action.payload;
             localStorage.setItem("search",JSON.stringify(state.search.term));
         },
+
+        //getting recently viewed from the local storage and repopulating the redux store
         rehydrateRecentlyViewed:(state) =>{
             if (JSON.parse(localStorage.getItem('recentlyViewed'))===null || JSON.parse(localStorage.getItem('recentlyViewed')) === undefined) state.recentlyViewed=[];
             else state.recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed'));
         },
+
+        //getting last search term from the local storage and repopulating the redux store
         rehydrateSearch:(state) =>{
             if (JSON.parse(localStorage.getItem('search'))===null || JSON.parse(localStorage.getItem('search')) === undefined) {
                 state.search.term="";
@@ -76,13 +89,16 @@ export const ArtistSlice = createSlice({
             }
             else state.search.term = JSON.parse(localStorage.getItem('search'));
         },
+
+        //getting last search results from the local storage and repopulating the redux store
         rehydrateSearchResults:(state) =>{
             if (JSON.parse(localStorage.getItem('searchResult'))===null || JSON.parse(localStorage.getItem('searchResult')) === undefined) state.searchedBand={};
             else state.searchedBand = JSON.parse(localStorage.getItem('searchResults'));
         },
     },
+    //Handling results of async reducer calls
     extraReducers: (builder) => {
-        builder.addCase(getArtist.pending, (state) => {
+        builder.addCase(getArtist.pending, (state) => {                                //GetArtist
             state.search.status = 'loading';
         }).addCase(getArtist.fulfilled, (state, action) => {
             state.search.status = 'succeeded';
@@ -90,11 +106,12 @@ export const ArtistSlice = createSlice({
             localStorage.setItem("searchResults",JSON.stringify(state.searchedBand));
         })
 
-        builder.addCase(getAndSelectArtist.pending, (state) => {
+        builder.addCase(getAndSelectArtist.pending, (state) => {                       //GetAndSelectArtist
             state.status = 'loading';
         }).addCase(getAndSelectArtist.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.selectedBand = action.payload;
+            // checking if artist already present in recently viewed. Adding if not present 
             var i = state.recentlyViewed.findIndex(x => (x.id === action.payload.id));
             if(i <= -1 && action.payload.id){
                 state.recentlyViewed.push(action.payload);
@@ -102,7 +119,7 @@ export const ArtistSlice = createSlice({
             }
         })
 
-        builder.addCase(getSuggestions.pending, (state) => {
+        builder.addCase(getSuggestions.pending, (state) => {                           //GetSuggestions
             state.suggested.status = 'loading';
         }).addCase(getSuggestions.fulfilled, (state, action) => {
             state.suggested.status = 'succeeded';
@@ -120,20 +137,20 @@ export const {
 
 // The function below is called a selector and allows us to select a value from
 // the state
-export const selectSearchedBand = (state) => state.artists.searchedBand;
-export const selectArtistStatus = (state) => state.artists.status;
+export const selectSearchedBand = (state) => state.artists.searchedBand; // exports currently searched band
 
-export const selectSelectedBand = (state) => state.artists.selectedBand;
+export const selectSelectedBand = (state) => state.artists.selectedBand; // exports currently selected band
+export const selectArtistStatus = (state) => state.artists.status; // exports status of getAndSelectArtist
 
-export const selectSuggestions = (state) => state.artists.suggested.suggestionList;
-export const selectSuggestedArtistStatus = (state) => state.artists.suggested.status;
+export const selectSuggestions = (state) => state.artists.suggested.suggestionList; // export suggest artist list
+export const selectSuggestedArtistStatus = (state) => state.artists.suggested.status; // export the status of getSuggested Artists
 
+export const selectArtistError = (state) => state.artists.error; //export any error in API call while fetching the Artists
 
-export const selectArtistError = (state) => state.artists.error;
+export const selectSearchTerm = (state) => state.artists.search.term; // exports current search term from the redux store
+export const selectSearchStatus = (state) => state.artists.search.status; // export status of the API call of the search
 
-export const selectSearchTerm = (state) => state.artists.search.term;
-export const selectSearchStatus = (state) => state.artists.search.status;
-export const selectRecentlyViewed = (state) => state.artists.recentlyViewed;
+export const selectRecentlyViewed = (state) => state.artists.recentlyViewed; // exports recently viewed list
 
 
 export default ArtistSlice.reducer;

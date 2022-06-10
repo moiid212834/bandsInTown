@@ -16,8 +16,9 @@ export const ThemeSlice = createSlice({
   reducers: {
     toggleMode: (state) => {
       state.mode = state.mode === 'light' ? 'dark' : 'light';
-      localStorage.setItem("preferedMode",state.mode);
+      localStorage.setItem("preferedMode",state.mode); // Storing preference in local storage 
     },
+    //Getting mode preference from local storage
     rehydrateMode: (state) =>{
       if(localStorage.getItem("preferedMode") === null || localStorage.getItem("preferedMode") === 'undefined' || localStorage.getItem("preferedMode") === '')
       state.mode = 'dark';
@@ -26,10 +27,10 @@ export const ThemeSlice = createSlice({
   },
 });
 
-export const { toggleMode,rehydrateMode } = ThemeSlice.actions;
+export const { toggleMode,rehydrateMode } = ThemeSlice.actions; //exporting actions
 
 // The function below is called a selector and allows us to select a value from
 // the state
-export const selectMode = (state) => state.theme.mode;
+export const selectMode = (state) => state.theme.mode; // exporting current theme from redux store
 
 export default ThemeSlice.reducer;

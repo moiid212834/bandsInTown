@@ -4,35 +4,44 @@ import {searchArtist, getArtist, selectSearchTerm} from '../../features/artists/
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react'
 
-export default function ComboBox() {
+/**
+ * Searchbar on home page
+ */
+export default function Search() {
     const dispatch = useDispatch();
-    const lastSearchTerm=useSelector(selectSearchTerm);
+    const lastSearchTerm = useSelector(selectSearchTerm);
     const [searchTerm,
         setSearchTerm] = useState('');
 
-    const handleEnter = (event) =>{
-      if (event.key === 'Enter') {
-        dispatch(searchArtist(searchTerm));
-        dispatch(getArtist(searchTerm));
-      }
+    /**
+     * Handles 'Enter' key press after search result is typed.
+     */
+    const handleEnter = (event) => {
+        if (event.key === 'Enter') {
+            dispatch(searchArtist(searchTerm));
+            dispatch(getArtist(searchTerm));
+        }
     }
 
-    React.useEffect(()=>{
-      if(lastSearchTerm){
-        setSearchTerm(lastSearchTerm);
-        dispatch(getArtist(lastSearchTerm));
+    /**
+     * Checks if a searched term was present before page reload and restores the search term and search results
+     */
+    React.useEffect(() => {
+        if (lastSearchTerm) {
+            setSearchTerm(lastSearchTerm);
+            dispatch(getArtist(lastSearchTerm));
         }
-      },[])
-        
-    return (
-    <TextField
+    }, [])
+
+    return (<TextField
         id="outlined-basic"
         label="Search Artist"
         variant="outlined"
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
         onKeyDown={handleEnter}
-        sx={{width:'100%',my:3}}
-      /> 
-    );
+        sx={{
+        width: '100%',
+        my: 3
+    }}/>);
 }

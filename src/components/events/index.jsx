@@ -11,6 +11,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import {Grid4SkeletonCards as Skeleton} from '../Skeleton';
 
+/**
+ * Styled card item used in the grid for events
+ */
 const Item = styled(Card)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark'
         ? '#121212'
@@ -28,10 +31,14 @@ const Item = styled(Card)(({theme}) => ({
     justifyContent: 'space-between'
 }));
 
-function prettyDate(datetime){
+/**
+ * Pretifies date time from the api response.
+ * @param datetime - datetime value from the API response.
+ */
+function prettyDate(datetime) {
     let date = new Date(datetime);
     /* Date format you have */
-    let dateMDY = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}, ${date.getFullYear()} - ${('0'+date.getHours()).substr(-2)}:${('0'+date.getMinutes()).substr(-2)}`;
+    let dateMDY = `${date.getDate()} ${date.toLocaleString('default', {month: 'short'})}, ${date.getFullYear()} - ${ ('0' + date.getHours()).substr(-2)}:${ ('0' + date.getMinutes()).substr(-2)}`;
     /* Date converted to MM-DD-YYYY format */
     return dateMDY;
 }
@@ -46,70 +53,83 @@ export default function Suggestions(props) {
     }, [props.artist]);
 
     return (
-        <Box sx={{mb: 7}}>
+        <Box sx={{
+            mb: 7
+        }}>
             {eventsStatus === "loading"
-            ? (
-                <Skeleton status={eventsStatus}></Skeleton>
-            )
-            : (
-                <div>
-            {events.length < 1 || events.errorMessage
                 ? (
-                    <div style={{}}>
-                        No Events Found
-                    </div>
+                    <Skeleton status={eventsStatus}></Skeleton>
                 )
                 : (
-                    
-                        <Grid container spacing={{xs: 2,md: 3}} columns={{xs: 4,sm: 8,md: 12}}>
-                        {events.map((element, key) => (
-                            <Grid
-                                item
-                                style={{
-                                display: 'flex',
-                                width: '100%'
-                            }}
-                                key={key}
-                                xs={12}
-                                sm={4}
-                                md={4}>
-                                <Item>
-                                    <CardActionArea
-                                        style={{
-                                        textAlign: 'left'
-                                    }}>
-                                        <CardContent>
-                                            <Typography
-                                                gutterBottom
-                                                variant="h6"
-                                                sx={{
-                                                lineHeight: '1',
-                                                paddingBottom: '10px'
-                                            }}
-                                                fontWeight='bold'
-                                                component="div">
-                                                {element.title === ''
-                                                    ? 'Concert'
-                                                    : element.title}
-                                            </Typography>
-                                            
-                                            <Typography gutterBottom variant="div" component="div">
-                                            {element.venue.name}, {element.venue.city}, {element.venue.country}
-                                            </Typography>
-                                            <Typography gutterBottom variant="div" component="div">
-                                                {prettyDate(element.datetime)}hrs
-                                            </Typography>
+                    <div>
+                        {events.length < 1 || events.errorMessage
+                            ? (
+                                <div style={{}}>
+                                    No Events Found
+                                </div>
+                            )
+                            : (
 
-                                        </CardContent>
-                                    </CardActionArea>
-                                    <Button onClick={() => window.location.href = element.url}>View Details</Button>
-                                </Item>
-                            </Grid>
-                        ))}
-                        </Grid>
-               
-            )}
-            </div>)}
+                                <Grid
+                                    container
+                                    spacing={{
+                                    xs: 2,
+                                    md: 3
+                                }}
+                                    columns={{
+                                    xs: 4,
+                                    sm: 8,
+                                    md: 12
+                                }}>
+                                    {events.map((element, key) => (
+                                        <Grid
+                                            item
+                                            style={{
+                                            display: 'flex',
+                                            width: '100%'
+                                        }}
+                                            key={key}
+                                            xs={12}
+                                            sm={4}
+                                            md={4}>
+                                            <Item>
+                                                <CardActionArea
+                                                    style={{
+                                                    textAlign: 'left'
+                                                }}>
+                                                    <CardContent>
+                                                        <Typography
+                                                            gutterBottom
+                                                            variant="h6"
+                                                            sx={{
+                                                            lineHeight: '1',
+                                                            paddingBottom: '10px'
+                                                        }}
+                                                            fontWeight='bold'
+                                                            component="div">
+                                                            {element.title === ''
+                                                                ? 'Concert'
+                                                                : element.title}
+                                                        </Typography>
+
+                                                        <Typography gutterBottom variant="div" component="div">
+                                                            {element.venue.name}, {element.venue.city}, {element.venue.country}
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="div" component="div">
+                                                            {prettyDate(element.datetime)}hrs
+                                                        </Typography>
+
+                                                    </CardContent>
+                                                </CardActionArea>
+                                                <Button onClick={() => window.location.href = element.url}>View Details</Button>
+                                            </Item>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+
+                            )}
+                    </div>
+                )}
         </Box>
     );
 }

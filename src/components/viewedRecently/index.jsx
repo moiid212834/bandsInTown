@@ -3,18 +3,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {CardActionArea, IconButton} from '@mui/material';
-import {useSelector, useDispatch} from 'react-redux';
-import {selectArtistStatus, selectRecentlyViewed, selectBand} from '../../features/artists/ArtistSlice';
+import {CardActionArea} from '@mui/material';
+import {useSelector} from 'react-redux';
+import {selectRecentlyViewed} from '../../features/artists/ArtistSlice';
 import {useNavigate} from 'react-router-dom';
 import {experimentalStyled as styled} from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import {Grid4Skeleton as Skeleton} from '../Skeleton';
-import {getEvents} from '../../features/events/EventsSlice';
 import ScrollContainer from 'react-indiana-drag-scroll';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+//Styling single card for recently viewed
 const Item = styled(Card)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark'
         ? '#121212'
@@ -30,18 +28,14 @@ const Item = styled(Card)(({theme}) => ({
 }));
 
 export default function ViewedRecently() {
-    const dispatch = useDispatch();
-    const recentlyViewed = useSelector(selectRecentlyViewed);
-    const artistStatus = useSelector(selectArtistStatus);
+    const recentlyViewed = useSelector(selectRecentlyViewed); //getting recently viewed list from redux store
     const navigate = useNavigate();
 
+    //Handling click on recently viewed card
     function handleClick(band) {
         navigate('/events/' + band.name);
         window.scrollTo({top: 0, behaviour: 'smooth'});
     }
-
-    // function slideRight() {     var scrollable =
-    // document.selectElementById('scrollable'); }
 
     return (
 

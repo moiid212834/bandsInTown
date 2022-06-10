@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 import {CardActionArea, CardActions} from '@mui/material';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react';
-import { selectSuggestedArtistStatus, getSuggestions, selectSuggestions, selectBand} from '../../features/artists/ArtistSlice';
+import {selectSuggestedArtistStatus, getSuggestions, selectSuggestions, selectBand} from '../../features/artists/ArtistSlice';
 import {useNavigate} from 'react-router-dom';
 import {experimentalStyled as styled} from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/FacebookOutlined';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import {Grid4Skeleton as Skeleton} from '../Skeleton';
-import { getEvents } from '../../features/events/EventsSlice';
+import {getEvents} from '../../features/events/EventsSlice';
 
 const Item = styled(Card)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark'
@@ -31,27 +31,38 @@ export default function Suggestions() {
     const suggestionStatus = useSelector(selectSuggestedArtistStatus);
     const navigate = useNavigate();
 
-    function requestSuggestions(){
+    /**
+     * Hardcoded suggestion list is passed itteratively to the reducer which populates suggestionList
+     * *Can be generated dynamically using some method
+     */
+    function requestSuggestions() {
         const searchValues = ['the smiths', 'maroon5', 'coldplay', 'queen'];
-        searchValues.forEach(function(value) {
-            dispatch(getSuggestions({url:`https://rest.bandsintown.com/artists/${value}?app_id=foo`}));
+        searchValues.forEach(function (value) {
+            dispatch(getSuggestions({url: `https://rest.bandsintown.com/artists/${value}?app_id=foo`}));
         });
 
     }
 
-    function handleClick (band) {
-        navigate('/events/'+band.name);
-        window.scrollTo({top:0, behaviour:'smooth'});
+    /**
+     * Handles Clicks on suggested artist card.
+     * @param band is the band on the selected card
+     */
+    function handleClick(band) {
+        navigate('/events/' + band.name);
+        window.scrollTo({top: 0, behaviour: 'smooth'});
     }
 
+    /**
+     * Requested
+     */
     useEffect(() => {
         if (suggestionStatus === 'idle') {
             requestSuggestions();
         }
-    },[]);
-    
+    }, []);
+
     return (
-        
+
         <Box sx={{
             mb: 7
         }}>
@@ -76,10 +87,8 @@ export default function Suggestions() {
                                 <CardActionArea
                                     style={{
                                     textAlign: 'center'
-                                    
                                 }}
-                                onClick={()=>handleClick(element)}
-                                >
+                                    onClick={() => handleClick(element)}>
                                     <CardMedia
                                         component="img"
                                         image={element.thumb_url}
@@ -87,10 +96,8 @@ export default function Suggestions() {
                                         className='cicular--portrait'
                                         style={{
                                         margin: '0 auto',
-                                        padding: '20px',
-                                        
-                                        }}
-                                    />
+                                        padding: '20px'
+                                    }}/>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
                                             {element.name}

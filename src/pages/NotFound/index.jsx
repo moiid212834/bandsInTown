@@ -2,6 +2,8 @@ import {Button, Typography} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import React from 'react';
 
+//Not found page
+//All urls except ./ and ./events/{artistname}
 const Component = ({setPageTitle}) => {
   const navigate = useNavigate()
     return (

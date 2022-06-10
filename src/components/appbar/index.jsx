@@ -3,10 +3,14 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {ThemeSelector} from '../../features/theme/Theme';
+import {ThemeSelector} from '../Theme';
 import {useNavigate} from 'react-router-dom';
 
-
+/**
+ * Appbarr component
+ * Same Appbar navigation bar is used throughout the app
+ * <ThemeSelector> is embeded within the app bar
+ */
 export default function ButtonAppBar(props) {
   const navigate = useNavigate();
   return (

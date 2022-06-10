@@ -9,14 +9,18 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 
+//Landing Page
+//Indvidually Accesible through ./events/{artistname}
 export default function EventsPage() {
-    const selectedBand = useSelector(selectSelectedBand);
-    const artistStatus = useSelector(selectArtistStatus);
-    const imgUrl = selectedBand.image_url;
-    const params = useParams();
+    const selectedBand = useSelector(selectSelectedBand); // gets currently selected band from the redux store
+    const artistStatus = useSelector(selectArtistStatus); // gets the status of the getAndSelectArtist Call 
+    const imgUrl = selectedBand.image_url; // gets the image url of the selected band to render
+    
+    const params = useParams(); // useParams hook to read the URL to get the artist name
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // update artist if the url changes
     useEffect(() => {
         dispatch(getAndSelectArtist(params.id));
     }, [params.id])
