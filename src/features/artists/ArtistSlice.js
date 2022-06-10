@@ -31,7 +31,6 @@ export const getArtist = createAsyncThunk('artists/fetchArtist', async(search) =
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    
     return data;
 });
 
@@ -40,7 +39,6 @@ export const getAndSelectArtist = createAsyncThunk('artists/fetchAndSelectArtist
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    
     return data;
 });
 
@@ -49,7 +47,7 @@ export const getSuggestions = createAsyncThunk('artists/fetchSuggestions', async
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    
+    await sleep(2000);
     return data;
 });
 
@@ -64,13 +62,22 @@ export const ArtistSlice = createSlice({
     reducers: {
         searchArtist: (state, action) => {
             state.search.term = action.payload;
+            localStorage.setItem("search",JSON.stringify(state.search.term));
         },
-        selectBand:(state,action) =>{
-            state.selectedBand=action.payload;
-            var i = state.recentlyViewed.findIndex(x => (x.id === action.payload.id));
-            if(i <= -1){
-                state.recentlyViewed.push(action.payload);
+        rehydrateRecentlyViewed:(state) =>{
+            if (JSON.parse(localStorage.getItem('recentlyViewed'))===null || JSON.parse(localStorage.getItem('recentlyViewed')) === undefined) state.recentlyViewed=[];
+            else state.recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed'));
+        },
+        rehydrateSearch:(state) =>{
+            if (JSON.parse(localStorage.getItem('search'))===null || JSON.parse(localStorage.getItem('search')) === undefined) {
+                state.search.term="";
+                state.search.status="idle";
             }
+            else state.search.term = JSON.parse(localStorage.getItem('search'));
+        },
+        rehydrateSearchResults:(state) =>{
+            if (JSON.parse(localStorage.getItem('searchResult'))===null || JSON.parse(localStorage.getItem('searchResult')) === undefined) state.searchedBand={};
+            else state.searchedBand = JSON.parse(localStorage.getItem('searchResults'));
         },
     },
     extraReducers: (builder) => {
@@ -79,6 +86,7 @@ export const ArtistSlice = createSlice({
         }).addCase(getArtist.fulfilled, (state, action) => {
             state.search.status = 'succeeded';
             state.searchedBand = action.payload;
+            localStorage.setItem("searchResults",JSON.stringify(state.searchedBand));
         })
 
         builder.addCase(getAndSelectArtist.pending, (state) => {
@@ -89,6 +97,7 @@ export const ArtistSlice = createSlice({
             var i = state.recentlyViewed.findIndex(x => (x.id === action.payload.id));
             if(i <= -1){
                 state.recentlyViewed.push(action.payload);
+                localStorage.setItem("recentlyViewed",JSON.stringify(state.recentlyViewed));
             }
         })
 
@@ -103,7 +112,9 @@ export const ArtistSlice = createSlice({
 
 export const {
     searchArtist,
-    selectBand,
+    rehydrateRecentlyViewed,
+    rehydrateSearch,
+    rehydrateSearchResults,
 } = ArtistSlice.actions;
 
 // The function below is called a selector and allows us to select a value from

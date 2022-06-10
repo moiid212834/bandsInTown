@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo-96.png';
 import './App.css';
 
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {CssBaseline} from '@mui/material';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {selectMode} from './features/theme/ThemeSlice';
 import {Routes, Route} from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import AppBar from './components/appbar';
 import Footer from './components/footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Loader from './components/Loader'
+import { rehydrateRecentlyViewed, rehydrateSearch, } from './features/artists/ArtistSlice';
 
 const EventsPage = React.lazy(() => import ('./pages/Events'));
 const HomePage = React.lazy(() => import ('./pages/Home'));
@@ -22,6 +23,13 @@ function App() {
     const darkTheme = createTheme({palette: {
             mode
         }});
+
+    const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        dispatch(rehydrateRecentlyViewed());
+        dispatch(rehydrateSearch());
+    },[]);
 
     return (
         <ThemeProvider theme={darkTheme}>

@@ -33,13 +33,12 @@ export default function ViewedRecently() {
     const navigate = useNavigate();
 
     function handleClick(band) {
-        navigate('/events/'+band.name);
+        navigate('/events/' + band.name);
         window.scrollTo({top: 0, behaviour: 'smooth'});
     }
 
-    // function slideRight() {
-    //     var scrollable = document.selectElementById('scrollable');
-    // }
+    // function slideRight() {     var scrollable =
+    // document.selectElementById('scrollable'); }
 
     return (
 
@@ -57,22 +56,7 @@ export default function ViewedRecently() {
                         overflowY: 'hidden',
                         position: 'relative'
                     }}>
-                        {/* <IconButton
-                            variant='contained'
-                            // onClick={() => slideRight()}
-                            sx={{
-                            position: 'absolute',
-                            backgroundColor: 'black',
-                            right: '20px',
-                            top: '40%',
-                            zIndex: 999999,
-                            boxShadow: '1px 1px 10px 4px black'
-                        }}>
-                            <ArrowForwardIcon></ArrowForwardIcon>
-                        </IconButton> */}
                         <ScrollContainer>
-
-                            <Skeleton status={artistStatus}></Skeleton>
                             <Grid
                                 container
                                 spacing={{
