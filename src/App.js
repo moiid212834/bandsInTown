@@ -43,7 +43,7 @@ function App() {
                     <Routes>
                         <Route path="/events/:id" element={< EventsPage />}></Route>
                         <Route path="/" element={< HomePage />}></Route>
-                        <Route element={< NotFoundPage />}></Route>
+                        <Route path="*" element={< NotFoundPage />}></Route>
                     </Routes>
                     </React.Suspense>
                 </ErrorBoundary>
