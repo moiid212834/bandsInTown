@@ -23,7 +23,10 @@ const Item = styled(Card)(({theme}) => ({
     padding: 0,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    width: '230px'
+    width: '230px',
+    display:'flex',
+    flexDirection:'column',
+    height:'100%'
 }));
 
 export default function ViewedRecently() {
@@ -58,6 +61,7 @@ export default function ViewedRecently() {
                     }}>
                         <ScrollContainer>
                             <Grid
+                                alignItems="stretch"
                                 container
                                 spacing={{
                                 xs: 2
@@ -73,7 +77,8 @@ export default function ViewedRecently() {
                                             <Item>
                                                 <CardActionArea
                                                     style={{
-                                                    textAlign: 'center'
+                                                    textAlign: 'center',
+                                                    height:'100%'
                                                 }}
                                                     onClick={() => handleClick(element)}>
                                                     <CardMedia
