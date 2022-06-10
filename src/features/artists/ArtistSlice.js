@@ -31,8 +31,6 @@ export const getArtist = createAsyncThunk('artists/fetchArtist', async(search) =
     // The value we return becomes the `fulfilled` action payload return
     // response.json;
     const data = await response.json();
-    console.log(data)
-    await sleep(2000);
     return data;
 });
 
