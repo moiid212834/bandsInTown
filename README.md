@@ -7,8 +7,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1.	Download the master branch of the project from Github
 2.	Unzip the folder
 3.	Open the extracted folder and run CMD or GitBash in that folder
-4.	Run npm install on the command line and wait for NPM to install all the dependencies
-5.	Run npm start on the command line to start the project on port 3000
+4.	Run `npm install` on the command line and wait for NPM to install all the dependencies
+5.	Run `npm start` on the command line to start the project on port 3000
 
 ## Available Scripts
 
