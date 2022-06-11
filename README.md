@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
+## Instructions to run the project Locally:
+
+1.	Download the master branch of the project from Github
+2.	Unzip the folder
+3.	Open the extracted folder and run CMD or GitBash in that folder
+4.	Run npm install on the command line and wait for NPM to install all the dependencies
+5.	Run npm start on the command line to start the project on port 3000
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -39,11 +47,5 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Instructions to run the project Locally:
 
-1.	Download the master branch of the project from Github
-2.	Unzip the folder
-3.	Open the extracted folder and run CMD or GitBash in that folder
-4.	Run npm install on the command line and wait for NPM to install all the dependencies
-5.	Run npm start on the command line to start the project on port 3000
 
