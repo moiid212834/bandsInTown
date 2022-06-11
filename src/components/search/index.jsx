@@ -12,14 +12,20 @@ export default function Search() {
     const lastSearchTerm = useSelector(selectSearchTerm);
     const [searchTerm,
         setSearchTerm] = useState('');
+    const [helperText,setHelperText]=useState("");
 
     /**
      * Handles 'Enter' key press after search result is typed.
      */
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
+          if(searchTerm!==""){
+            setHelperText("");
             dispatch(searchArtist(searchTerm));
             dispatch(getArtist(searchTerm));
+          }else{
+            setHelperText("You need to type something");
+          }
         }
     }
 
@@ -40,6 +46,7 @@ export default function Search() {
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
         onKeyDown={handleEnter}
+        helperText={helperText}
         sx={{
         width: '100%',
         my: 3
