@@ -93,7 +93,7 @@ export default function Suggestions(props) {
                                             sm={4}
                                             md={4}>
                                             <Item>
-                                                <CardActionArea
+                                                <div
                                                     style={{
                                                     textAlign: 'left'
                                                 }}>
@@ -120,7 +120,7 @@ export default function Suggestions(props) {
                                                         </Typography>
 
                                                     </CardContent>
-                                                </CardActionArea>
+                                                </div>
                                                 <Button onClick={() => window.location.href = element.url}>View Details</Button>
                                             </Item>
                                         </Grid>
